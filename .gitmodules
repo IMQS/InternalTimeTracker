@@ -1,0 +1,12 @@
+[submodule "src/github.com/BurntSushi/migration"]
+	path = src/github.com/BurntSushi/migration
+	url = https://github.com/BurntSushi/migration.git
+[submodule "src/github.com/lib/pq"]
+	path = src/github.com/lib/pq
+	url = https://github.com/lib/pq.git
+[submodule "src/github.com/IMQS/log"]
+	path = src/github.com/IMQS/log
+	url = https://github.com/IMQS/log.git
+[submodule "src/gopkg.in/natefinch/lumberjack.v2"]
+	path = src/gopkg.in/natefinch/lumberjack.v2
+	url = https://github.com/natefinch/lumberjack.git
