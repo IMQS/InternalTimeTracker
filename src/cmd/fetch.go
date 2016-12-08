@@ -34,8 +34,8 @@ func main() {
 		os.Exit(0)
 	}
 
-	//logger := log.New("scraper.log")
-	logger := log.New(log.Stdout)
+	logger := log.New("scraper.log")
+	//logger := log.New(log.Stdout)
 
 	db := &timedb.TimeDB{}
 	db.Log = logger
@@ -66,23 +66,21 @@ func main() {
 		fetchers = append(fetchers, &tmetric.Fetcher{})
 	}
 
-	ok := true
+	// We don't want to continue through errors, because if JIRA fetches fail, then
+	// tmetric will end up creating a whole bunch of anonymous tasks.
+	var err error
 	for _, f := range fetchers {
-		if err := f.LoadConfig(); err != nil {
+		if err = f.LoadConfig(); err != nil {
 			logger.Errorf("Error loading config for %v:\n%v\n", f.Name(), err)
-			ok = false
-			// We don't want to continue, because if JIRA fetches fail, then
-			// tmetric will end up creating a whole bunch of anonymous tasks.
 			break
 		}
-		if err := f.Fetch(db, start_date, end_date); err != nil {
+		if err = f.Fetch(db, start_date, end_date); err != nil {
 			logger.Errorf("Error fetching from %v:\n%v\n", f.Name(), err)
-			ok = false
 			break
 		}
 	}
 
-	if ok {
+	if err == nil {
 		logger.Infof("Finished successfully\n")
 	} else {
 		logger.Infof("Finished with errors\n")

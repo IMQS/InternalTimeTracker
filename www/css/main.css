@@ -1,0 +1,9 @@
+.ct-series-a .ct-bar {
+  stroke: #2c2;
+  stroke-width: 15px;
+}
+
+.ct-series-b .ct-bar {
+  stroke: #c22;
+  stroke-width: 15px;
+}

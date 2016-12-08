@@ -1,0 +1,7 @@
+{
+	"Driver": "postgres",
+	"Host": "localhost",
+	"Database": "scraper",
+	"Username": "imqs",
+	"Password": "PASSWORD"
+} 

@@ -14,6 +14,7 @@ import (
 )
 
 /*
+The tmetric login is convoluted, so I'm just injecting manually obtained cookies for now.
 
 URL:
 
@@ -38,6 +39,13 @@ Cookie: _ga=REDACTED; _gat=REDACTED; .AspNet.Cookies=REDACTED
 Host: app.tmetric.com
 Referer: https://app.tmetric.com/
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14393
+
+Sample TMetric output:
+
+User,Project,Client,Task,Tags,Time
+anthony.thevenin,Team Infrastructure,,Hide / Show from Legend tool broken,,6:02:00
+ben,Team Infrastructure,,AlbServer must call CrudServer on the correct port,,3:21:00
+
 
 */
 
@@ -73,7 +81,7 @@ func (f *Fetcher) Name() string {
 }
 
 func (f *Fetcher) LoadConfig() error {
-	return f.Config.LoadFile("config-tmetric.json")
+	return f.Config.LoadFile("config/tmetric.json")
 }
 
 func roundDownToDay(t time.Time) time.Time {

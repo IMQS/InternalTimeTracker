@@ -28,7 +28,7 @@ type Fetcher struct {
 }
 
 func (f *Fetcher) LoadConfig() error {
-	return f.Config.LoadFile("config-jira.json")
+	return f.Config.LoadFile("config/jira.json")
 }
 
 func (f *Fetcher) Fetch(db *timedb.TimeDB, start, end time.Time) error {

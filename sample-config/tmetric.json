@@ -1,0 +1,9 @@
+{
+	"EmailSuffix": "@imqs.co.za",
+	"AccountID": "123456",
+	"Cookies": {
+		"_ga": "GA1.2",
+		"_gat": "5",
+		".AspNet.Cookies": "abcdefg"
+	}
+} 

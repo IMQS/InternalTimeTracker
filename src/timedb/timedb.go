@@ -83,7 +83,7 @@ func isKeyViolation(err error) bool {
 }
 
 func (t *TimeDB) LoadConfig() error {
-	filename := "config-timedb.json"
+	filename := "config/timedb.json"
 	bytes, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return fmt.Errorf("Error loading config file %v: %v", filename, err)
