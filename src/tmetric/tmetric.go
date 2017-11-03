@@ -106,6 +106,8 @@ func (f *Fetcher) Fetch(db *timedb.TimeDB, start, end time.Time) error {
 		}
 		fmt.Printf("Fetching TMetric from %v to %v\n", pos1.Format(time.RFC3339), pos2.Format(time.RFC3339))
 		if err := f.fetchInternal(db, pos1, pos2); err != nil {
+			fmt.Printf("TMetric errors...")
+			fmt.Println(err)
 			return err
 		}
 		pos1 = pos2
@@ -133,6 +135,13 @@ func (f *Fetcher) fetchInternal(db *timedb.TimeDB, start, end time.Time) error {
 		return err
 	}
 	// User,Project,Client,Task,Tags,Time
+	// 2017-11-03 : CSV now includes additional fields if ticket was created from JIRA : Issue Id, Link
+	//				These may be used to tie-up better with the JIRA extract which previously used Task without Issue Id, forcing us to string match on the description
+	//				Task renamed to Time Entry
+	//				
+	//				EXAMPLE:
+	//				﻿Day,User,Project,Project Code,Client,Time Entry,Tags,Time,Issue Id,Link 
+	//				2017-10-30,ben,Team Infrastructure,,,Implement theme query API,,4:01:00,TI-2362,"=HYPERLINK(""https://imqssoftware.atlassian.net/browse/TI-2362"")"
 	userPos := -1
 	taskPos := -1
 	timePos := -1
@@ -143,8 +152,9 @@ func (f *Fetcher) fetchInternal(db *timedb.TimeDB, start, end time.Time) error {
 				switch field {
 				case "User":
 					userPos = pos
-				case "Task":
-					taskPos = pos
+				case "Time Entry":
+				// case "Task":
+				 	taskPos = pos
 				case "Time":
 					timePos = pos
 				}
@@ -213,6 +223,6 @@ func (f *Fetcher) FetchRaw(start, end time.Time) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Error reading body: %v", err)
 	}
-
+    fmt.Printf("TMetric body: %s", body)
 	return body, nil
 }
